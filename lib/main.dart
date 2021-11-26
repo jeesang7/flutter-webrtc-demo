@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'admin_page.dart';
+import 'videotelephony_page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -42,7 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
               minWidth: size.width * 0.3,
               height: size.height * 0.7,
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push<void>(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VideoTelephonyPage()));
+                },
                 child: Text(
                   "통화하기",
                   style: Theme.of(context).textTheme.headline3!.copyWith(
@@ -57,7 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
               minWidth: size.width * 0.3,
               height: size.height * 0.7,
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push<void>(context,
+                      MaterialPageRoute(builder: (context) => AdminPage()));
+                },
                 child: Text(
                   "관리자",
                   style: Theme.of(context).textTheme.headline3!.copyWith(

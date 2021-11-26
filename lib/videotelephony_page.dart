@@ -7,9 +7,9 @@ import 'src/call_sample/call_sample.dart';
 import 'src/call_sample/data_channel_sample.dart';
 import 'src/route_item.dart';
 
-void main() => runApp(new MyApp());
+// void main() => runApp(new VideoTelephonyPage());
 
-class MyApp extends StatefulWidget {
+class VideoTelephonyPage extends StatefulWidget {
   @override
   _MyAppState createState() => new _MyAppState();
 }
@@ -19,7 +19,7 @@ enum DialogDemoAction {
   connect,
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<VideoTelephonyPage> {
   List<RouteItem> items = [];
   String _server = '';
   late SharedPreferences _prefs;
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: Text('Flutter-WebRTC example'),
+            title: Text('통화하기'),
           ),
           body: ListView.builder(
               shrinkWrap: true,
@@ -110,28 +110,16 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                     Navigator.pop(context, DialogDemoAction.cancel);
                   }),
-              FlatButton(
-                  child: const Text('CONNECT'),
-                  onPressed: () {
-                    Navigator.pop(context, DialogDemoAction.connect);
-                  })
             ]));
   }
 
   _initItems() {
     items = <RouteItem>[
       RouteItem(
-          title: 'P2P Call Sample',
-          subtitle: 'P2P Call Sample.',
+          title: '화상통화',
+          subtitle: '화상통화',
           push: (BuildContext context) {
             _datachannel = false;
-            _showAddressDialog(context);
-          }),
-      RouteItem(
-          title: 'Data Channel Sample',
-          subtitle: 'P2P Data Channel.',
-          push: (BuildContext context) {
-            _datachannel = true;
             _showAddressDialog(context);
           }),
     ];
