@@ -86,10 +86,14 @@ class _CallSampleState extends State<CallSample> {
 
     _signaling?.onLocalStream = ((stream) {
       _localRenderer.srcObject = stream;
+
+      setState(() {}); // ADD THIS
     });
 
     _signaling?.onAddRemoteStream = ((_, stream) {
       _remoteRenderer.srcObject = stream;
+
+      setState(() {}); // AND ADD THIS
     });
 
     _signaling?.onRemoveRemoteStream = ((_, stream) {
