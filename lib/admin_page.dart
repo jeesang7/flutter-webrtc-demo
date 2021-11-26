@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc_demo/model/carebox.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -15,6 +17,13 @@ class _MyAppState extends State<AdminPage> {
   void initState() {
     super.initState();
     bloc.fetchStatus();
+    _startTimer(false);
+  }
+
+  @override
+  void deactivate() {
+    _startTimer(true);
+    super.deactivate();
   }
 
   @override
@@ -83,19 +92,80 @@ class _MyAppState extends State<AdminPage> {
                   SizedBox(
                     height: size.height * 0.05,
                   ),
-                  Container(
-                    // margin: const EdgeInsets.all(30.0),
-                    padding: const EdgeInsets.fromLTRB(50, 5, 50, 5),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.green, width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    child: Text(
-                      "정상",
-                      style: Theme.of(context).textTheme.headline4!.copyWith(
-                          fontWeight: FontWeight.bold, color: Colors.green),
-                    ),
-                  ),
+                  StreamBuilder(
+                      stream: bloc.status,
+                      builder: (context, AsyncSnapshot<Carebox> snapshot) {
+                        if (snapshot.hasData) {
+                          switch (snapshot.data!.result) {
+                            case "normal":
+                              return Container(
+                                // margin: const EdgeInsets.all(30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(50, 5, 50, 5),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.green, width: 3),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
+                                ),
+                                child: Text(
+                                  "정상",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green),
+                                ),
+                              );
+                            case "prehypertension":
+                              return Container(
+                                // margin: const EdgeInsets.all(30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(50, 5, 50, 5),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.orange, width: 3),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
+                                ),
+                                child: Text(
+                                  "전고혈압",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.orange),
+                                ),
+                              );
+                            case "hypertension":
+                              return Container(
+                                // margin: const EdgeInsets.all(30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(50, 5, 50, 5),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.red, width: 3),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30)),
+                                ),
+                                child: Text(
+                                  "고혈압",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red),
+                                ),
+                              );
+                            default:
+                              break;
+                          }
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      }),
                 ],
               ),
               flex: 2,
@@ -230,6 +300,17 @@ class _MyAppState extends State<AdminPage> {
           yValueMapper: (_ChartData sales, _) => sales.y2,
           markerSettings: const MarkerSettings(isVisible: true)),
     ];
+  }
+
+  void _startTimer(bool stop) {
+    const sec = Duration(seconds: 3);
+    Timer.periodic(sec, (Timer t) {
+      if (stop) {
+        t.cancel();
+      }
+      print('hi!');
+      bloc.fetchStatus();
+    });
   }
 }
 
