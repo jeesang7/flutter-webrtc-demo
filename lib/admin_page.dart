@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webrtc_demo/model/carebox.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'bloc/carebox_bloc.dart';
 
 class AdminPage extends StatefulWidget {
   @override
@@ -7,6 +9,14 @@ class AdminPage extends StatefulWidget {
 }
 
 class _MyAppState extends State<AdminPage> {
+  late Carebox carebox;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc.fetchStatus();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,19 +39,26 @@ class _MyAppState extends State<AdminPage> {
                     ),
                   ),
                   SizedBox(
-                    height: size.height * 0.07,
+                    height: size.height * 0.05,
                   ),
                   Text(
                     "최고",
                     style: Theme.of(context).textTheme.headline3!,
                   ),
-                  Text(
-                    "120",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
+                  StreamBuilder(
+                      stream: bloc.status,
+                      builder: (context, AsyncSnapshot<Carebox> snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(
+                            snapshot.data!.systolic,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          );
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      }),
                   SizedBox(
                     height: size.height * 0.05,
                   ),
@@ -49,13 +66,20 @@ class _MyAppState extends State<AdminPage> {
                     "최저",
                     style: Theme.of(context).textTheme.headline3!,
                   ),
-                  Text(
-                    "60",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
+                  StreamBuilder(
+                      stream: bloc.status,
+                      builder: (context, AsyncSnapshot<Carebox> snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(
+                            snapshot.data!.diastolic,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          );
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      }),
                   SizedBox(
                     height: size.height * 0.05,
                   ),
