@@ -36,7 +36,11 @@ class _MyAppState extends State<VideoTelephonyPage> {
     return ListBody(children: <Widget>[
       ListTile(
         title: Text(item.title),
-        onTap: () => item.push(context),
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    CallSample(host: "192.168.0.3"))),
         trailing: Icon(Icons.arrow_right),
       ),
       Divider()
@@ -110,6 +114,11 @@ class _MyAppState extends State<VideoTelephonyPage> {
                   onPressed: () {
                     Navigator.pop(context, DialogDemoAction.cancel);
                   }),
+              FlatButton(
+                  child: const Text('CONNECT'),
+                  onPressed: () {
+                    Navigator.pop(context, DialogDemoAction.connect);
+                  })
             ]));
   }
 
@@ -120,7 +129,7 @@ class _MyAppState extends State<VideoTelephonyPage> {
           subtitle: '화상통화',
           push: (BuildContext context) {
             _datachannel = false;
-            _showAddressDialog(context);
+            // _showAddressDialog(context);
           }),
     ];
   }
