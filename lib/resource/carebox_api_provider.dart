@@ -5,7 +5,7 @@ import 'package:http/http.dart' show Client, Response;
 
 class CareboxApiProvider {
   Client client = Client();
-  final _baseUrl = "http://192.168.0.3:9090";
+  final _baseUrl = "http://172.30.1.19:9090";
 
   Future<Carebox> fetchStatus() async {
     late Response response;

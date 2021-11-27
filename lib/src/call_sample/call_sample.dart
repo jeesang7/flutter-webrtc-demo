@@ -126,7 +126,7 @@ class _CallSampleState extends State<CallSample> {
     return ListBody(children: <Widget>[
       ListTile(
         title: Text(self
-            ? peer['name'] + ', ID: ${peer['id']} ' + ' [Your self]'
+            ? peer['name'] + ', ID: ${peer['id']} ' + ' [본인]'
             : peer['name'] + ', ID: ${peer['id']} '),
         onTap: null,
         trailing: SizedBox(
@@ -157,7 +157,7 @@ class _CallSampleState extends State<CallSample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('P2P Call Sample' +
+        title: Text('화상통화' +
             (_selfId != null ? ' [Your ID ($_selfId)] ' : '')),
         actions: <Widget>[
           IconButton(

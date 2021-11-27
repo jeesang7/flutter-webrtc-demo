@@ -40,7 +40,7 @@ class _MyAppState extends State<VideoTelephonyPage> {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    CallSample(host: "192.168.0.3"))),
+                    CallSample(host: "172.30.1.19"))),
         trailing: Icon(Icons.arrow_right),
       ),
       Divider()

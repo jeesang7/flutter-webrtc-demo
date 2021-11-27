@@ -263,6 +263,39 @@ class _MyAppState extends State<AdminPage> {
             )
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    //Dialog Main Title
+                    title: Column(
+                      children: <Widget>[
+                        new Text("투약 정보"),
+                      ],
+                    ),
+                    content:
+                        Image.asset('assets/medicine.png', fit: BoxFit.cover),
+                    actions: <Widget>[
+                      new FlatButton(
+                        child: new Text("확인"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                });
+          },
+          child: const Icon(Icons.medical_services_rounded),
+          backgroundColor: Colors.blue,
+        ),
       ),
     );
   }
