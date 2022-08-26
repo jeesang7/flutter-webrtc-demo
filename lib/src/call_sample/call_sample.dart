@@ -71,8 +71,7 @@ class _CallSampleState extends State<CallSample> {
             setState(() {
               _inCalling = true;
             });
-          }
-          else {
+          } else {
             _reject();
           }
           break;
@@ -166,8 +165,7 @@ class _CallSampleState extends State<CallSample> {
               onPressed: () {
                 Navigator.of(context).pop(false);
                 _hangUp();
-                },
-
+              },
             ),
           ],
         );
@@ -243,8 +241,7 @@ class _CallSampleState extends State<CallSample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('P2P Call Sample' +
-            (_selfId != null ? ' [Your ID ($_selfId)] ' : '')),
+        title: Text('케어콜' + (_selfId != null ? ' [$_selfId] ' : '')),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
@@ -306,13 +303,71 @@ class _CallSampleState extends State<CallSample> {
                 ]),
               );
             })
-          : ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(0.0),
-              itemCount: (_peers != null ? _peers.length : 0),
-              itemBuilder: (context, i) {
-                return _buildRow(context, _peers[i]);
-              }),
+          : Container(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          _invitePeer(context, _peers[0]['id'], false);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              '👨',
+                              style: TextStyle(fontSize: 150.0),
+                            ),
+                            Text(
+                              '첫째 아들',
+                              style: TextStyle(fontSize: 100.0),
+                            )
+                          ],
+                        )),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '👩‍🦰',
+                            style: TextStyle(fontSize: 150.0),
+                          ),
+                          Text(
+                            '둘째 딸',
+                            style: TextStyle(fontSize: 100.0),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '👨 👩‍🦰',
+                            style: TextStyle(fontSize: 150.0),
+                          ),
+                          Text(
+                            '다함께',
+                            style: TextStyle(fontSize: 100.0),
+                          )
+                        ],
+                      ),
+                    )
+                  ]),
+            ),
     );
   }
 }

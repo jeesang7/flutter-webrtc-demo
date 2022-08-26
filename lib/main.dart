@@ -28,8 +28,8 @@ class _MyAppState extends State<MyApp> {
   @override
   initState() {
     super.initState();
-    _initData();
-    _initItems();
+    // _initData();
+    // _initItems();
   }
 
   _buildRow(context, item) {
@@ -47,16 +47,32 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Flutter-WebRTC example'),
+        appBar: AppBar(
+          title: Text('케어콜'),
+        ),
+        body: Builder(
+          builder: (context) => Center(
+            child: SizedBox(
+              height: 500.0,
+              width: 900.0,
+              child: ElevatedButton(
+                child: const Text(
+                  '시작하기',
+                  style: TextStyle(fontSize: 100.0),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => CallSample(
+                              host: "192.168.0.3",
+                            )),
+                  );
+                },
+              ),
+            ),
           ),
-          body: ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(0.0),
-              itemCount: items.length,
-              itemBuilder: (context, i) {
-                return _buildRow(context, items[i]);
-              })),
+        ),
+      ),
     );
   }
 
